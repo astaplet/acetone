@@ -15,6 +15,16 @@ import java.util.UUID
   case class RouteEdge(edgeId: UUID, sourceId: UUID, targetId: UUID, weight: Int, difficulty: Int, edgeName: String, edgeDescription: String) {
     require(difficulty < 11 && difficulty > 0)
     require(weight > 0)
+
+    def asCSV: Seq[String] = {
+      Seq[String](edgeId.toString,sourceId.toString,targetId.toString,weight.toString,difficulty.toString,edgeName,edgeDescription)
+    }
+  }
+
+  object RouteEdge {
+    def apply(csv: List[String]): RouteEdge = {
+      RouteEdge(UUID.fromString(csv(0)), UUID.fromString(csv(1)), UUID.fromString(csv(2)), Integer.parseInt(csv(3)), Integer.parseInt(csv(4)), csv(5), csv(6))
+    }
   }
 
   /**
@@ -24,4 +34,14 @@ import java.util.UUID
    * @param goalName the name of this goal
    * @param goalDescription a description of this goal
    */
-  case class GoalNode(nodeId: UUID, edges: Set[RouteEdge], goalName: String, goalDescription: String)
+  case class GoalNode(nodeId: UUID, edges: Set[UUID], goalName: String, goalDescription: String) {
+    def asCsv: Seq[String] = {
+      Seq(nodeId.toString,edges.mkString("|"),goalName,goalDescription)
+    }
+  }
+
+  object GoalNode {
+    def apply(csv: List[String]): GoalNode = {
+      GoalNode(UUID.fromString(csv(0)), csv(1).split("|").map(UUID.fromString(_)).toSet, csv(2), csv(3))
+    }
+  }

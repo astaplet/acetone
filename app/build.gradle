@@ -20,24 +20,18 @@ repositories {
 }
 
 dependencies {
-    // Use Scala 2.13 in our library project
-    implementation 'org.scala-lang:scala-library:2.13.6'
+    implementation 'org.scala-lang:scala-library:2.11.12'
+    testImplementation 'org.scalatest:scalatest_2.11:3.0.0'
+    testImplementation 'junit:junit:4.13'
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1.1-jre'
 
-    // https://mvnrepository.com/artifact/com.github.david-bouyssie/sqlite4s
-    implementation group: 'com.github.david-bouyssie', name: 'sqlite4s_native0.4_2.13', version: '0.4.1'
+    implementation 'com.github.blemale:scaffeine_2.11:4.1.0'
 
-    implementation 'com.github.blemale:scaffeine_2.12:5.2.0'
+    // https://mvnrepository.com/artifact/com.github.tototoshi/scala-csv
+    implementation group: 'com.github.tototoshi', name: 'scala-csv_2.11', version: '1.3.10'
 
-    // Use Scalatest for testing our library
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.scalatest:scalatest_2.13:3.2.10'
-    testImplementation 'org.scalatestplus:junit-4-13_2.13:3.2.2.0'
-
-    // Need scala-xml at test runtime
-    testRuntimeOnly 'org.scala-lang.modules:scala-xml_2.13:1.2.0'
 }
 
 application {
